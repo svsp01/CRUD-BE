@@ -48,16 +48,15 @@ router.put('/:id', async (req, res) => {
 
 router.post('/add', async (req, res) => {
     const data = req.body;
+    console.log(data)
     try {
         const newEmployee = await Employee.create(data);
-
         res.status(200).json(newEmployee);
     } catch (error) {
         console.error('Error creating employee:', error);
         res.status(500).send('Internal Server Error');
     }
 });
-
 
 router.delete('/:id', async (req, res) => {
     const empId = req.params.id;

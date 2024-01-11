@@ -5,13 +5,10 @@ const AdminUser = require('../model/AdminUser');
 
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
-    console.log(email, "useremail")
-    console.log(password, "userpassword")
 
 
     try {
         const adminUser = await AdminUser.findOne({ email, password });
-        console.log(adminUser, "user")
 
         if (adminUser) {
             const token = jwt.sign({ userId: adminUser._id }, 'your_secret_key');
