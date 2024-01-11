@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 
+const nameSchema = new mongoose.Schema({
+    firstName: String,
+    lastName: String,
+});
+
 const employeeSchema = new mongoose.Schema({
-    name: {
-        firstName: String,
-        lastName: String,
-    },
+    name: nameSchema,
     email: String,
     empId: String,
     gender: String,
@@ -14,6 +16,7 @@ const employeeSchema = new mongoose.Schema({
     position: String,
     salary: Number,
 });
+
 
 const Employee = mongoose.model('users', employeeSchema);
 

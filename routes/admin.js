@@ -5,8 +5,6 @@ const AdminUser = require('../model/AdminUser');
 
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
-
-
     try {
         const adminUser = await AdminUser.findOne({ email, password });
 
