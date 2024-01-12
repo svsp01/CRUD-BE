@@ -10,7 +10,7 @@ const port = 5000;
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb://localhost:27017/users')
+mongoose.connect('mongodb://127.0.0.1:27017/users')
     .then(() => {
         console.log('Connected to MongoDB');
     })

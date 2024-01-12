@@ -19,10 +19,8 @@ router.get('/list', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     const empId = req.params.id;
-
     try {
         const employee = await Employee.findOne({ empId });
-
         if (employee) {
             res.json(employee);
         } else {
