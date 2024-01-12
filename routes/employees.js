@@ -34,21 +34,31 @@ router.get('/:id', async (req, res) => {
 
 
 router.put('/:id', async (req, res) => {
-    const empId = req.params.id;
-    const data = req.body;
+    const _id = req.params.id
+    let payload = req.body;
 
     try {
-        const updatedEmployee = await Employee.findOneAndUpdate(
-            { empId },
-            { $set: data },
+        let employee = await Employee.findOne({ _id });
+
+        if (!employee) {
+            res.status(404).json({
+                status: false,
+                message: "Employee not found",
+            });
+            return;
+        }
+
+        let updatedEmployee = await Employee.findOneAndUpdate(
+            { _id: _id },
+            { $set: payload },
             { new: true }
         );
 
-        if (updatedEmployee) {
-            res.status(200).json(updatedEmployee);
-        } else {
-            res.status(404).send('Employee not found');
-        }
+        res.json({
+            status: true,
+            message: "Employee updated successfully",
+            updatedEmployee,
+        });
     } catch (error) {
         console.error('Error updating employee:', error);
         res.status(500).send('Internal Server Error');
@@ -68,10 +78,21 @@ router.post('/add', async (req, res) => {
 });
 
 router.delete('/:id', async (req, res) => {
-    const empId = req.params.id;
+    const _id = req.params.id;
+    console.log(_id)
 
     try {
-        const deletedEmployee = await Employee.findOneAndDelete({ empId });
+        let employee = await Employee.findOne({ _id });
+
+        if (!employee) {
+            res.status(404).json({
+                status: false,
+                message: "Employee not found",
+            });
+            return;
+        }
+
+        const deletedEmployee = await Employee.findOneAndDelete({ _id });
 
         if (deletedEmployee) {
             res.status(200).json(deletedEmployee);
